@@ -70,6 +70,16 @@ GeForce GTX 1080 or higher recommended.
 - Enable
   ![vorticity_confinement](./images/bc3_res800_cip_dye_vc.jpg)
 
+
+### Generate image sequence
+To generate an image sequence, you can use the generate_graph.py
+- example, if the .npz files are in the `output` folder and you want to save images in `image_out_bc1` folder:
+  ```bash
+  python generate_graph.py --dataset_folder output --output_folder image_out_bc1
+  ```
+
+```bash
+
 ## References
 
 - [移流法](https://pbcglab.jp/cgi-bin/wiki/index.php?%E7%A7%BB%E6%B5%81%E6%B3%95)
