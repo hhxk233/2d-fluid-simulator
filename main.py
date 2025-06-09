@@ -48,6 +48,15 @@ def main():
     parser.add_argument("-no_dye", "--no_dye", help="No dye calculation", action="store_true")
     parser.add_argument("-cpu", "--cpu", action="store_true")
 
+    # add save every time
+    parser.add_argument(
+        "-save",
+        "--save_every",
+        help="Save every n steps",
+        type=int,
+        default=100,
+    )
+
     args = parser.parse_args()
 
     n_bc = args.boundary_condition
@@ -107,10 +116,17 @@ def main():
 
         if not paused:
             fluid_sim.step()
+            # fields = fluid_sim.field_to_numpy()
+            # np.savez(str(output_path / f"step_{step:06}.npz"), **fields)
+            if step % args.save_every == 0:
+                output_path.mkdir(exist_ok=True)
+                fields = fluid_sim.field_to_numpy()
+                np.savez(str(output_path / f"step_{step:06}.npz"), **fields)
+            
 
         if window.get_event(ti.ui.PRESS):
             e = window.event
-            if e.key == ti.ui.ESCAPE:
+            if e.key == ti.ui.ESCAPE or step >= 10000:
                 break
             elif e.key == "p":
                 paused = not paused
