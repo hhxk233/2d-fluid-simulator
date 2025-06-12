@@ -57,8 +57,8 @@ class FluidSimulator:
                 rgb_buf[i, j] = self._wall_color
 
     @staticmethod
-    def create(num, resolution, dt, dx, re, vor_eps, scheme):
-        boundary_condition = get_boundary_condition(num, resolution, True)
+    def create(num, resolution, dt, dx, re, vor_eps, scheme, init_v=[1.0, 0.0]):
+        boundary_condition = get_boundary_condition(num, resolution, True, init_v)
         vorticity_confinement = (
             VorticityConfinement(boundary_condition, dt, dx, vor_eps)
             if vor_eps is not None
@@ -114,8 +114,8 @@ class DyeFluidSimulator(FluidSimulator):
                 rgb_buf[i, j] = self._wall_color
 
     @staticmethod
-    def create(num, resolution, dt, dx, re, vor_eps, scheme):
-        boundary_condition = get_boundary_condition(num, resolution, False)
+    def create(num, resolution, dt, dx, re, vor_eps, scheme, init_v=[1.0, 0.0]):
+        boundary_condition = get_boundary_condition(num, resolution, False, init_v)
         vorticity_confinement = (
             VorticityConfinement(boundary_condition, dt, dx, vor_eps)
             if vor_eps is not None

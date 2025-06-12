@@ -16,6 +16,7 @@
   - Vorticity
   - Dye
 - Vorticity Confinement
+- Customizable Initial Velocity (for boundary condition 1)
 
 ## Requirements
 
@@ -32,6 +33,26 @@ GeForce GTX 1080 or higher recommended.
   ```
   Press `V` key switches the flow visualization method.
   `dt` is automatically determined even if not specified, but should be small for divergence.
+
+- Boundary Condition 1 with custom initial velocity
+  ```bash
+  # Default velocity (1.0, 0.0) - flow from left to right
+  python main.py -bc 1
+
+  # Custom velocity (e.g., 0.5, 0.2) - flow at an angle
+  python main.py -bc 1 -init_v 0.5 0.2
+
+  # Zero velocity
+  python main.py -bc 1 -init_v 0 0
+
+  # Example with other parameters
+  python main.py -re 1000 -dt 0.0005 -vc 0.0 -bc 1 --save_every 5 --output_path data_bc1 --initial_velocity 1.0 0
+  ```
+  The initial velocity components are:
+  - First value: x-component (horizontal velocity)
+  - Second value: y-component (vertical velocity)
+  Note: Provide the velocity components as separate numbers without brackets or commas.
+
 - Boundary Condition 2, resolution = 800
   ```bash
   python main.py -bc 2 -res 800
@@ -77,8 +98,6 @@ To generate an image sequence, you can use the generate_graph.py
   ```bash
   python generate_graph.py --dataset_folder output --output_folder image_out_bc1
   ```
-
-```bash
 
 ## References
 
