@@ -80,7 +80,7 @@ def main():
         "--max_steps",
         help="Maximum number of steps to run the simulation",
         type=int,
-        default=500,
+        default=1000,
     )
 
     args = parser.parse_args()
@@ -150,7 +150,7 @@ def main():
             fluid_sim.step()
             # fields = fluid_sim.field_to_numpy()
             # np.savez(str(output_path / f"step_{step:06}.npz"), **fields)
-            if step % args.save_every == 0:
+            if step % args.save_every == 0 and step >= 500:
                 output_path.mkdir(exist_ok=True)
                 fields = fluid_sim.field_to_numpy()
                 np.savez(str(output_path / f"step_{step:06}.npz"), **fields)
